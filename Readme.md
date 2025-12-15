@@ -1,4 +1,4 @@
-# C++ Password Vault
+# The Cipher Vault
 
 A simple, secure password manager built from scratch in C++. It encrypts your passwords using the [**TEA (Tiny Encryption Algorithm)**](https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm) and stores them in a binary file.
 
