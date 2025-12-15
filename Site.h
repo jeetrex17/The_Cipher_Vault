@@ -8,7 +8,6 @@ class Site {
 private:
     std::string password;
     std::string check_phrase;
-    std::string encrypt(std::string pass, const std::string& k);
 
 public:
     std::string username;

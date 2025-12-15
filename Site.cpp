@@ -3,17 +3,18 @@
 #include <fstream>
 #include <vector>
 #include <cstring> // For size_t
+#include "Crypto.h"
 
 
 // private methods
-std::string Site::encrypt(std::string pass, const std::string& k) {
-    if (k.empty()) return pass;
-    for (size_t i = 0; i < pass.length(); i++) {
-        char keychar = k[i % k.length()];
-        pass[i] = keychar ^ pass[i];
-    }
-    return pass;
-}
+// std::string Site::encrypt(std::string pass, const std::string& k) {
+//     if (k.empty()) return pass;
+//     for (size_t i = 0; i < pass.length(); i++) {
+//         char keychar = k[i % k.length()];
+//         pass[i] = keychar ^ pass[i];
+//     }
+//     return pass;
+// }
 
 
 // public methods
@@ -21,8 +22,8 @@ Site::Site() {}
 
 Site::Site(std::string raw_p, std::string u, std::string sn, std::string key)
     : username(u), sitename(sn) {
-    password = encrypt(raw_p, key);
-    check_phrase = encrypt("valid", key);
+    password = encrypt_data(raw_p, key);
+    check_phrase = encrypt_data("valid", key);
 }
 
 Site Site::createFromFile(std::string p, std::string u, std::string sn, std::string c) {
@@ -35,7 +36,7 @@ Site Site::createFromFile(std::string p, std::string u, std::string sn, std::str
 }
 
 bool Site::isValidKey(std::string k) {
-    std::string decrypted_canary = encrypt(check_phrase, k);
+    std::string decrypted_canary = decrypt_data(check_phrase, k);
     if (decrypted_canary == "valid") {
         return true;
     } else {
@@ -45,11 +46,11 @@ bool Site::isValidKey(std::string k) {
 }
 
 void Site::setPass(std::string raw_p, std::string k) {
-    password = encrypt(raw_p, k);
+    password = encrypt_data(raw_p, k);
 }
 
 std::string Site::getPass(std::string key) {
-    return encrypt(password, key);
+    return decrypt_data(password, key);
 }
 
 std::string Site::getRawPass() {
