@@ -112,7 +112,7 @@ std::string decrypt_data(const std::string &ciphertext, const std::string &key_s
     uint32_t key[4];
     make_key128(key_str, key);
     uint32_t* block_ptr = reinterpret_cast<uint32_t*>(data.data());
-    size_t num_blocks = data.size() / 8;
+    size_t num_blocks = data.size() / BLOCK_SIZE_BYTES;
 
     for (size_t i = 0; i < num_blocks; i++) {
         TEA_decrypt(&block_ptr[i * 2], key);
