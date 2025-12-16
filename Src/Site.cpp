@@ -1,9 +1,9 @@
-#include "Site.h"
+#include "../Header/Site.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cstring> // For size_t
-#include "Crypto.h"
+#include "../Header/Crypto.h"
 
 
 // private methods
